@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Composición Hepática por RM</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+  <div class="container">
+    <ul class="tabs">
+      <li class="tab col s6"><a href="#average-tab">Infiltración Grasa</a></li>
+      <li class="tab col s6"><a href="#sum-tab">Depósito de Hierro</a></li>
+    </ul>
+  </div>
+
+  <div id="average-tab" class="container">
+    <h4>Calcular Infiltración Grasa</h4>
+      <form action="" method="post">
+        <div class="row">
+          <div class="input-field col s6">
+            <input type="number" name="num11" id="num11" placeholder="Promedio 1">
+          </div>
+          <div class="input-field col s6">
+            <input type="number" name="num12" id="num12" placeholder="Área 1">
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input type="number" name="num21" id="num21" placeholder="Promedio 2">
+          </div>
+          <div class="input-field col s6">
+            <input type="number" name="num22" id="num22" placeholder="Área 2">
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input type="number" name="num31" id="num31" placeholder="Promedio 3">
+          </div>
+          <div class="input-field col s6">
+            <input type="number" name="num32" id="num32" placeholder="Área 3">
+          </div>
+        </div>
+        <div class="col s12">
+          <button class="btn" onclick="calculateAverage()">Calcular Infiltración Grasa</button>
+        </div>
+      </form>
+      <div class="col s12">
+        <p>    </p>
+      </div>
+      <div class="col s12" id="average-result" style="font-size: 25px !important">
+      </div>
+  </div>
+
+  <div id="sum-tab" class="container">
+    <h4>Calcular Depósito de Hierro</h4>
+    <p>
+      <label>
+        <input name="operation" type="radio" value="untesla" checked />
+        <span>1,5T</span>
+      </label>
+    </p>
+    <p>
+      <label>
+        <input name="operation" type="radio" value="trestesla" />
+        <span>3T</span>
+      </label>
+    </p>   
+    <div class="row">
+      <div class="input-field col s12">
+        <input type="number" id="sum-num1">
+        <label for="sum-num1">Promedio</label>
+      </div>
+      <div class="col s12">
+        <button class="btn" onclick="calculateFe()">Calcular Depósito de Hierro</button>
+      </div>
+      <div class="col s12">
+        <p>    </p>
+      </div>
+      <div class="col s12" id="sum-result" style="font-size: 25px !important">
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var tabs = document.querySelectorAll('.tabs');
+      M.Tabs.init(tabs);
+    });
+
+    function calculateAverage() {
+      var num11 = parseFloat(document.getElementById('num11').value);
+      var num12 = parseFloat(document.getElementById('num12').value);
+      var num21 = parseFloat(document.getElementById('num21').value);
+      var num22 = parseFloat(document.getElementById('num22').value);
+      var num31 = parseFloat(document.getElementById('num31').value);
+      var num32 = parseFloat(document.getElementById('num32').value);
+
+      var average = (num11*num12 + num21*num22 + num31*num32) / 3;
+      document.getElementById('average-result').innerHTML = 'Average: ' + average.toFixed(2);
+    }
+
+    function calculateFe() {
+      var operation = document.querySelector('input[name="operation"]:checked').value;
+      var promedio = parseFloat(document.getElementById('sum-num1').value);
+      if (operation == 'untesla') {
+          resultadomg = 0.0254 * promedio + 0.202;
+          resultadomol = resultadomg / 0.0558;
+        } else if (operation == 'trestesla') {
+          r2 = 0.5 * (promedio + 11);
+          resultadomg = 0.0254 * r2 + 0.202;
+          resultadomol = resultadomg / 0.0558;
+        }
+      document.getElementById('sum-result').innerHTML = 'Depósito de hierro: ' + resultadomol.toFixed(2) + ' umol/g, o ' + resultadomg.toFixed(1) + ' mg/g';
+    }
+  </script>
+</body>
+</html>
