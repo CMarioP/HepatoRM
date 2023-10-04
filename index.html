@@ -9,17 +9,16 @@
 <body>
   <div class="container">
     <ul class="tabs">
-      <li class="tab col s6"><a href="#average-tab">Infiltración Grasa</a></li>
+      <li class="tab col s6"><a href="#average-tab">Elastografía</a></li>
       <li class="tab col s6"><a href="#sum-tab">Depósito de Hierro</a></li>
     </ul>
   </div>
 
   <div id="average-tab" class="container">
-    <h4>Calcular Infiltración Grasa</h4>
-      <form action="" method="post">
+    <h4>Elastografía</h4>
         <div class="row">
           <div class="input-field col s6">
-            <input type="number" name="num11" id="num11" placeholder="Promedio 1">
+            <input type="number" name="num11" id="num11" placeholder="ROI 1">
           </div>
           <div class="input-field col s6">
             <input type="number" name="num12" id="num12" placeholder="Área 1">
@@ -27,7 +26,7 @@
         </div>
         <div class="row">
           <div class="input-field col s6">
-            <input type="number" name="num21" id="num21" placeholder="Promedio 2">
+            <input type="number" name="num21" id="num21" placeholder="ROI 2">
           </div>
           <div class="input-field col s6">
             <input type="number" name="num22" id="num22" placeholder="Área 2">
@@ -35,21 +34,36 @@
         </div>
         <div class="row">
           <div class="input-field col s6">
-            <input type="number" name="num31" id="num31" placeholder="Promedio 3">
+            <input type="number" name="num31" id="num31" placeholder="ROI 3">
           </div>
           <div class="input-field col s6">
             <input type="number" name="num32" id="num32" placeholder="Área 3">
           </div>
         </div>
-        <div class="col s12">
-          <button class="btn" onclick="calculateAverage()">Calcular Infiltración Grasa</button>
+        <div class="row">
+          <div class="input-field col s6">
+            <input type="number" name="num41" id="num41" placeholder="ROI 4">
+          </div>
+          <div class="input-field col s6">
+            <input type="number" name="num42" id="num42" placeholder="Área 4">
+          </div>
         </div>
-      </form>
-      <div class="col s12">
-        <p>    </p>
-      </div>
-      <div class="col s12" id="average-result" style="font-size: 25px !important">
-      </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input type="number" name="num51" id="num51" placeholder="ROI 5">
+          </div>
+          <div class="input-field col s6">
+            <input type="number" name="num52" id="num52" placeholder="Área 5">
+          </div>
+        </div>
+        <div class="col s12">
+          <button class="btn" onclick="calculateAverage()">Calcular</button>
+        </div>
+        <div class="col s12">
+          <p>    </p>
+        </div>
+        <div class="col s12" id="average-result" style="font-size: 25px !important">
+        </div>
   </div>
 
   <div id="sum-tab" class="container">
@@ -69,7 +83,15 @@
     <div class="row">
       <div class="input-field col s12">
         <input type="number" id="sum-num1">
-        <label for="sum-num1">Promedio</label>
+        <label for="sum-num1">ROI 1</label>
+      </div>
+      <div class="input-field col s12">
+        <input type="number" id="sum-num2">
+        <label for="sum-num1">ROI 2</label>
+      </div>
+      <div class="input-field col s12">
+        <input type="number" id="sum-num3">
+        <label for="sum-num1">ROI 3</label>
       </div>
       <div class="col s12">
         <button class="btn" onclick="calculateFe()">Calcular Depósito de Hierro</button>
@@ -96,14 +118,21 @@
       var num22 = parseFloat(document.getElementById('num22').value);
       var num31 = parseFloat(document.getElementById('num31').value);
       var num32 = parseFloat(document.getElementById('num32').value);
+      var num41 = parseFloat(document.getElementById('num41').value);
+      var num42 = parseFloat(document.getElementById('num42').value);
+      var num51 = parseFloat(document.getElementById('num51').value);
+      var num52 = parseFloat(document.getElementById('num52').value);
 
-      var average = (num11*num12 + num21*num22 + num31*num32) / 3;
-      document.getElementById('average-result').innerHTML = 'Average: ' + average.toFixed(2);
+      var average = (num11*num12 + num21*num22 + num31*num32 + num41*num42 + num51*num52) / 5;
+      document.getElementById('average-result').innerHTML = 'Elastografía: ' + average.toFixed(2);
     }
 
     function calculateFe() {
       var operation = document.querySelector('input[name="operation"]:checked').value;
-      var promedio = parseFloat(document.getElementById('sum-num1').value);
+      var roi1 = parseFloat(document.getElementById('sum-num1').value);
+      var roi2 = parseFloat(document.getElementById('sum-num2').value);
+      var roi3 = parseFloat(document.getElementById('sum-num3').value);
+      var promedio = (roi1 + roi2 + roi3) / 3;
       if (operation == 'untesla') {
           resultadomg = 0.0254 * promedio + 0.202;
           resultadomol = resultadomg / 0.0558;
