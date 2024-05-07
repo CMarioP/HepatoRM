@@ -123,7 +123,7 @@
       var num51 = parseFloat(document.getElementById('num51').value);
       var num52 = parseFloat(document.getElementById('num52').value);
 
-      var average = (num11*num12 + num21*num22 + num31*num32 + num41*num42 + num51*num52) / 5;
+      var average = (num11*num12 + num21*num22 + num31*num32 + num41*num42 + num51*num52) / (num12 + num22 + num32 + num42 + num52);
       document.getElementById('average-result').innerHTML = 'Elastografía: ' + average.toFixed(2);
     }
 
